@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Parcel Sandbox</title>
+    <meta charset="UTF-8" />
+
+    <style>
+       html {
+        height: 100%;
+      }
+      body {
+        font-family: sans-serif;
+        display: flex;
+        height: 100%;
+        column-gap: 20px;
+      }
+
+      .slider {
+        user-select: none;
+        width: 300px;
+        height: 20px;
+        position: relative;
+        border: 1px solid gray;
+        cursor: pointer;
+      }
+      .progress {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        background-color: plum;
+        left: 10%;
+        right: 20%;
+        transition-property: left, right;
+        transition-duration: 60ms;
+        transition-timing-function: linear;
+      }
+      .thumbLeft,
+      .thumbRight {
+        position: absolute;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgb(82, 82, 82);
+        translate: -50%;
+        transition-property: left;
+        transition-duration: 60ms;
+        transition-timing-function: linear;
+      }
+      .thumbLeft {
+        left: 10%;
+      }
+      .thumbRight {
+        left: 80%;
+      }
+
+      .config-wrapper {
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+        row-gap: 4px;
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <div class="config-wrapper">
+      <input type="number" placeholder="min value" oninput="onMinValue(event)">
+      <input type="number" placeholder="max value" oninput="onMaxValue(event)">
+      <input type="number" placeholder="step" oninput="onStep(event)">
+      <input type="number" placeholder="left thumb value" oninput="onLeftThumbValue(event)">
+      <input type="number" placeholder="right thumb value" oninput="onRightThumbValue(event)">
+      <input type="number" placeholder="min limit left thumb" oninput="onMinLimitLeftThumb(event)">
+      <input type="number" placeholder="max limit left thumb" oninput="onMaxLimitLeftThumb(event)">
+      <input type="number" placeholder="min limit right thumb" oninput="onMinLimitRightThumb(event)">
+      <input type="number" placeholder="max limit right thumb" oninput="onMaxLimitRightThumb(event)">
+    </div>
+
+    <div class="slider">
+      <div class="progress"></div>
+      <div class="thumbLeft"></div>
+      <div class="thumbRight"></div>
+    </div>
+
+    <script src="./index.js"></script>
+
+    <script>
+      function onMinValue(event) {
+        const val = event.target.value
+
+      }
+      function onMaxValue(event) {
+        const val = event.target.value
+
+      }
+      function onStep(event) {
+        const val = event.target.value
+        step = parseFloat(val)
+        lastMax = min + (step * Math.round((max - min) / step))
+      }
+      function onLeftThumbValue(event) {
+        const val = event.target.value
+
+      }
+      function onRightThumbValue(event) {
+        const val = event.target.value
+
+      }
+      function onMinLimitLeftThumb(event) {
+        const val = event.target.value
+
+      }
+      function onMaxLimitLeftThumb(event) {
+        const val = event.target.value
+
+      }
+      function onMinLimitRightThumb(event) {
+        const val = event.target.value
+
+      }
+      function onMaxLimitRightThumb(event) {
+        const val = event.target.value
+
+      }
+    </script>
+  </body>
+</html>
