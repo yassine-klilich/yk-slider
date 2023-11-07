@@ -69,15 +69,15 @@
   <body>
 
     <div class="config-wrapper">
-      <input type="number" placeholder="min value" oninput="onMinValue(event)">
-      <input type="number" placeholder="max value" oninput="onMaxValue(event)">
-      <input type="number" placeholder="step" oninput="onStep(event)">
-      <input type="number" placeholder="left thumb value" oninput="onLeftThumbValue(event)">
-      <input type="number" placeholder="right thumb value" oninput="onRightThumbValue(event)">
-      <input type="number" placeholder="min limit left thumb" oninput="onMinLimitLeftThumb(event)">
-      <input type="number" placeholder="max limit left thumb" oninput="onMaxLimitLeftThumb(event)">
-      <input type="number" placeholder="min limit right thumb" oninput="onMinLimitRightThumb(event)">
-      <input type="number" placeholder="max limit right thumb" oninput="onMaxLimitRightThumb(event)">
+      <label for="inputMinValue">Min Value</label> <input id="inputMinValue" type="number" placeholder="min value" oninput="onMinValue(event)">
+      <label for="inputMaxValue">Max Value</label> <input id="inputMaxValue" type="number" placeholder="max value" oninput="onMaxValue(event)">
+      <label for="inputStep">Step</label> <input id="inputStep" type="number" placeholder="step" oninput="onStep(event)">
+      <label for="inputLeftThumbValue">Left Thumb Value</label> <input id="inputLeftThumbValue" type="number" placeholder="left thumb value" oninput="onLeftThumbValue(event)">
+      <label for="inputRightThumbValue">Right Thumb Value</label> <input id="inputRightThumbValue" type="number" placeholder="right thumb value" oninput="onRightThumbValue(event)">
+      <label for="inputMinLimitLeftThumb">Min Limit Left Thumb</label> <input id="inputMinLimitLeftThumb" type="number" placeholder="min limit left thumb" oninput="onMinLimitLeftThumb(event)">
+      <label for="inputMaxLimitLeftThumb">Max Limit Left Thumb</label> <input id="inputMaxLimitLeftThumb" type="number" placeholder="max limit left thumb" oninput="onMaxLimitLeftThumb(event)">
+      <label for="inputMinLimitRightThumb">Min Limit Right Thumb</label> <input id="inputMinLimitRightThumb" type="number" placeholder="min limit right thumb" oninput="onMinLimitRightThumb(event)">
+      <label for="inputMaxLimitRightThumb">Max Limit Right Thumb</label> <input id="inputMaxLimitRightThumb" type="number" placeholder="max limit right thumb" oninput="onMaxLimitRightThumb(event)">
     </div>
 
     <div class="slider">
@@ -91,40 +91,57 @@
     <script>
       function onMinValue(event) {
         const val = event.target.value
-
+        min = parseFloat(val)
+        _init()
+        updateInputs()
       }
       function onMaxValue(event) {
         const val = event.target.value
-
+        max = parseFloat(val)
+        _init()
+        updateInputs()
       }
       function onStep(event) {
         const val = event.target.value
         step = parseFloat(val)
-        lastMax = min + (step * Math.round((max - min) / step))
+        _init()
+        updateInputs()
       }
       function onLeftThumbValue(event) {
         const val = event.target.value
-
+        updateInputs()
       }
       function onRightThumbValue(event) {
         const val = event.target.value
-
+        updateInputs()
       }
       function onMinLimitLeftThumb(event) {
         const val = event.target.value
-
+        updateInputs()
       }
       function onMaxLimitLeftThumb(event) {
         const val = event.target.value
-
+        updateInputs()
       }
       function onMinLimitRightThumb(event) {
         const val = event.target.value
-
+        updateInputs()
       }
       function onMaxLimitRightThumb(event) {
         const val = event.target.value
+        updateInputs()
+      }
 
+      function updateInputs() {
+        inputMinValue.value = min
+        inputMaxValue.value = max
+        inputStep.value = step
+        inputLeftThumbValue.value = parseFloat(value[0])
+        inputRightThumbValue.value = parseFloat(value[1])
+        inputMinLimitLeftThumb.value = parseFloat(limit[0][0])
+        inputMaxLimitLeftThumb.value = parseFloat(limit[0][1])
+        inputMinLimitRightThumb.value = parseFloat(limit[1][0])
+        inputMaxLimitRightThumb.value = parseFloat(limit[1][1])
       }
     </script>
   </body>

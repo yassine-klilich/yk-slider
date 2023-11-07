@@ -5,7 +5,8 @@ let max = 10
 let range = [11, 37]
 let lastMax = 0
 let value = [6, 37] // range values
-let limit = [[NaN, 3], [NaN, NaN]] // limit/range of each thumb
+let configLimit = [[NaN, 3], [NaN, NaN]] // limit/range of each thumb
+let limit = [[NaN, NaN], [NaN, NaN]]
 let _thumbToAdjust = '' // left - right
 let _sliderDOMRect
 
@@ -196,18 +197,18 @@ function _adjustMinMaxValues() {
   const leftValue = Math.min(
     Math.max(
       leftValueInRange,
-      limit[0][0]
+      limit[0][0] || -Infinity
     ),
-    limit[0][1]
+    limit[0][1] || Infinity
   )
   const rightValue = Math.max(
     Math.min(
       rightValueInRange,
-      limit[1][1]
+      limit[1][1] || Infinity
     ),
-    limit[1][0]
+    limit[1][0] || -Infinity
   )
-
+debugger
   _setValue(
     leftValue,
     rightValue
@@ -220,11 +221,11 @@ function _adjustMinMaxValues() {
  */
 function _adjustLimitValues() {
   // Convert any NaN value to min or max
-  limit[0][0] = (isNaN(limit[0][0]) ? min : limit[0][0])
-  limit[0][1] = (isNaN(limit[0][1]) ? lastMax : limit[0][1])
+  limit[0][0] = (isNaN(configLimit[0][0]) ? min : configLimit[0][0])
+  limit[0][1] = (isNaN(configLimit[0][1]) ? lastMax : configLimit[0][1])
 
-  limit[1][0] = (isNaN(limit[1][0]) ? min : limit[1][0])
-  limit[1][1] = (isNaN(limit[1][1]) ? lastMax : limit[1][1])
+  limit[1][0] = (isNaN(configLimit[1][0]) ? min : configLimit[1][0])
+  limit[1][1] = (isNaN(configLimit[1][1]) ? lastMax : configLimit[1][1])
 
   // Set limit to min and max value
   limit[0][0] = _isInRange(Math.min(limit[0][0], limit[0][1]))
