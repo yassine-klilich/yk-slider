@@ -80,10 +80,12 @@
       <label for="inputMaxLimitRightThumb">Max Limit Right Thumb</label> <input id="inputMaxLimitRightThumb" type="number" placeholder="max limit right thumb" oninput="onMaxLimitRightThumb(event)">
     </div>
 
-    <div class="slider">
-      <div class="progress"></div>
-      <div class="thumbLeft"></div>
-      <div class="thumbRight"></div>
+    <div style="position: sticky; top: 8px; height: fit-content;">
+      <div class="slider">
+        <div class="progress"></div>
+        <div class="thumbLeft"></div>
+        <div class="thumbRight"></div>
+      </div>
     </div>
 
     <script src="./index.js"></script>
@@ -91,44 +93,50 @@
     <script>
       function onMinValue(event) {
         const val = event.target.value
-        min = parseFloat(val)
+        min = parseFloat(val) || Math.min(min, max)
         _init()
         updateInputs()
       }
       function onMaxValue(event) {
         const val = event.target.value
-        max = parseFloat(val)
+        max = parseFloat(val) || Math.max(min, max)
         _init()
         updateInputs()
       }
       function onStep(event) {
-        const val = event.target.value
-        step = parseFloat(val)
-        _init()
-        updateInputs()
+        const val = parseFloat(event.target.value)
+        if (!isNaN(val) && val > 0) {
+          step = val
+          _init()
+          updateInputs()
+        }
       }
       function onLeftThumbValue(event) {
-        const val = event.target.value
+        const val = parseFloat(event.target.value) || min
+        value[0] = _isInRange(val)
+        _updateLeftThumb(mapValueToPercentageValue(val))
         updateInputs()
       }
       function onRightThumbValue(event) {
-        const val = event.target.value
+        const val = parseFloat(event.target.value) || max
+        value[1] = _isInRange(val)
+        _updateRightThumb(mapValueToPercentageValue(val))
         updateInputs()
       }
       function onMinLimitLeftThumb(event) {
-        const val = event.target.value
+        const val = parseFloat(event.target.value)
         updateInputs()
       }
       function onMaxLimitLeftThumb(event) {
-        const val = event.target.value
+        const val = parseFloat(event.target.value)
         updateInputs()
       }
       function onMinLimitRightThumb(event) {
-        const val = event.target.value
+        const val = parseFloat(event.target.value)
         updateInputs()
       }
       function onMaxLimitRightThumb(event) {
-        const val = event.target.value
+        const val = parseFloat(event.target.value)
         updateInputs()
       }
 

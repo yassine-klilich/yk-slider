@@ -1,6 +1,6 @@
 
 let step = 2
-let min = 0
+let min = -10
 let max = 10
 let range = [11, 37]
 let lastMax = 0
@@ -208,11 +208,14 @@ function _adjustMinMaxValues() {
     ),
     limit[1][0] || -Infinity
   )
-debugger
+
   _setValue(
     leftValue,
     rightValue
   )
+
+  limit[0][1] = _isInRange(Math.max((isNaN(configLimit[0][1]) ? leftValue : configLimit[0][1])))
+  limit[1][0] = _isInRange(Math.min((isNaN(configLimit[1][0]) ? rightValue : configLimit[1][0])))
 }
 
 /**
