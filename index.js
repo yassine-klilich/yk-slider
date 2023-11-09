@@ -183,8 +183,11 @@ function setRightValue(_value) {
  * Adjust min and max values.
  */
 function _adjustMinMaxValues() {
-  min = Math.min(min, max)
-  max = Math.max(min, max)
+  if (min > max) {
+    const tempMax = max
+    max = min
+    min = tempMax
+  }
   lastMax = min + (step * Math.round((max - min) / step))
 
   if (lastMax > max) {

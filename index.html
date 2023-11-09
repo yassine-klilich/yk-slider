@@ -92,16 +92,20 @@
 
     <script>
       function onMinValue(event) {
-        const val = event.target.value
-        min = parseFloat(val) || Math.min(min, max)
-        _init()
-        updateInputs()
+        const val = parseFloat(event.target.value)
+        if (!isNaN(val)) {
+          min = val
+          _init()
+          updateInputs()
+        }
       }
       function onMaxValue(event) {
-        const val = event.target.value
-        max = parseFloat(val) || Math.max(min, max)
-        _init()
-        updateInputs()
+        const val = parseFloat(event.target.value)
+        if (!isNaN(val)) {
+          max = val
+          _init()
+          updateInputs()
+        }
       }
       function onStep(event) {
         const val = parseFloat(event.target.value)
@@ -149,6 +153,8 @@
         inputMinLimitRightThumb.value = parseFloat(limit[1][0])
         inputMaxLimitRightThumb.value = parseFloat(limit[1][1])
       }
+
+      updateInputs()
     </script>
   </body>
 </html>
