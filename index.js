@@ -1,4 +1,3 @@
-
 let step = 2
 let min = -10
 let max = 10
@@ -68,42 +67,15 @@ function _onPointerMove(event) {
  */
 function _updateUI(pointerX) {
   const percentage = _getPercentage(pointerX)
-  const _value = _isInRange(mapPercentageToMinMaxRange(percentage))
+  const _value = _getValueInRange(mapPercentageToMinMaxRange(percentage))
   
-  if (_checkLimit(_value)) {
-    switch (_thumbToAdjust) {
-      case 'left': {
-        _setValue(_value, value[1])
-        _updateLeftThumb(mapValueToPercentageValue(_value))
-      } break;
-      case 'right': {
-        _setValue(value[0], _value)
-        _updateRightThumb(mapValueToPercentageValue(_value))
-      } break;
-    }
-  }
-
-}
-
-function _checkLimit(_value) {
   switch (_thumbToAdjust) {
-    case 'left':
-      if (_value <= value[1]) {
-        return (
-          (isNaN(limit[0][0]) || limit[0][0] <= _value) &&
-          (isNaN(limit[0][1]) || limit[0][1] >= _value)
-        );
-      }
-      return false;
-  
-    case 'right':
-      if (_value >= value[0]) {
-        return (
-          (isNaN(limit[1][0]) || limit[1][0] <= _value) &&
-          (isNaN(limit[1][1]) || limit[1][1] >= _value)
-        )
-      }
-      return false;
+    case 'left': {
+      setLeftValue(_value)
+    } break;
+    case 'right': {
+      setRightValue(_value)
+    } break;
   }
 }
 
@@ -178,6 +150,36 @@ function _setValue(min, max) {
 }
 
 /**
+ * 
+ * @param {*} _value 
+ */
+function setLeftValue(_value) {
+  if (
+    _value <= value[1] &&
+    (isNaN(limit[0][0]) || limit[0][0] <= _value) &&
+    (isNaN(limit[0][1]) || limit[0][1] >= _value))
+  {
+    value[0] = _value
+    _updateLeftThumb(mapValueToPercentageValue(_value))
+  }
+}
+
+/**
+ * 
+ * @param {*} _value 
+ */
+function setRightValue(_value) {
+  if (
+    _value >= value[0] &&
+    (isNaN(limit[1][0]) || limit[1][0] <= _value) &&
+    (isNaN(limit[1][1]) || limit[1][1] >= _value))
+  {
+    value[1] = _value
+    _updateRightThumb(mapValueToPercentageValue(_value))
+  }
+}
+
+/**
  * Adjust min and max values.
  */
 function _adjustMinMaxValues() {
@@ -191,8 +193,8 @@ function _adjustMinMaxValues() {
 
   _adjustLimitValues()
 
-  const leftValueInRange = _isInRange(value[0])
-  const rightValueInRange = _isInRange(value[1])
+  const leftValueInRange = _getValueInRange(value[0])
+  const rightValueInRange = _getValueInRange(value[1])
 
   const leftValue = Math.min(
     Math.max(
@@ -214,8 +216,8 @@ function _adjustMinMaxValues() {
     rightValue
   )
 
-  limit[0][1] = _isInRange(Math.max((isNaN(configLimit[0][1]) ? leftValue : configLimit[0][1])))
-  limit[1][0] = _isInRange(Math.min((isNaN(configLimit[1][0]) ? rightValue : configLimit[1][0])))
+  //limit[0][1] = _getValueInRange((isNaN(configLimit[0][1]) ? leftValue : configLimit[0][1]))
+  //limit[1][0] = _getValueInRange((isNaN(configLimit[1][0]) ? rightValue : configLimit[1][0]))
 }
 
 /**
@@ -231,10 +233,10 @@ function _adjustLimitValues() {
   limit[1][1] = (isNaN(configLimit[1][1]) ? lastMax : configLimit[1][1])
 
   // Set limit to min and max value
-  limit[0][0] = _isInRange(Math.min(limit[0][0], limit[0][1]))
-  limit[0][1] = _isInRange(Math.max(limit[0][0], limit[0][1]))
-  limit[1][0] = _isInRange(Math.min(limit[1][0], limit[1][1]))
-  limit[1][1] = _isInRange(Math.max(limit[1][0], limit[1][1]))
+  limit[0][0] = _getValueInRange(Math.min(limit[0][0], limit[0][1]))
+  limit[0][1] = _getValueInRange(Math.max(limit[0][0], limit[0][1]))
+  limit[1][0] = _getValueInRange(Math.min(limit[1][0], limit[1][1]))
+  limit[1][1] = _getValueInRange(Math.max(limit[1][0], limit[1][1]))
 }
 
 /**
@@ -254,7 +256,7 @@ function _whichThumbToAdjust(pointerX) {
 }
 
 
-function _isInRange(x) {
+function _getValueInRange(x) {
   if (x <= min) {
     return min;
   } else if (x >= lastMax) {

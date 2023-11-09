@@ -113,14 +113,12 @@
       }
       function onLeftThumbValue(event) {
         const val = parseFloat(event.target.value) || min
-        value[0] = _isInRange(val)
-        _updateLeftThumb(mapValueToPercentageValue(val))
+				setLeftValue(_getValueInRange(val))
         updateInputs()
       }
       function onRightThumbValue(event) {
         const val = parseFloat(event.target.value) || max
-        value[1] = _isInRange(val)
-        _updateRightThumb(mapValueToPercentageValue(val))
+        setRightValue(_getValueInRange(val))
         updateInputs()
       }
       function onMinLimitLeftThumb(event) {
