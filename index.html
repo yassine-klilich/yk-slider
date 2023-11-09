@@ -31,8 +31,8 @@
         left: 10%;
         right: 20%;
         transition-property: left, right;
-        transition-duration: 60ms;
-        transition-timing-function: linear;
+        transition-duration: 80ms;
+        transition-timing-function: cubic-bezier(0, 0.6, 1, 1);
       }
       .thumbLeft,
       .thumbRight {
@@ -45,8 +45,8 @@
         box-shadow: 0 0 10px rgb(82, 82, 82);
         translate: -50%;
         transition-property: left;
-        transition-duration: 60ms;
-        transition-timing-function: linear;
+        transition-duration: 80ms;
+        transition-timing-function: cubic-bezier(0, 0.6, 1, 1);
       }
       .thumbLeft {
         left: 10%;
@@ -96,49 +96,65 @@
         if (!isNaN(val)) {
           min = val
           _init()
-          updateInputs()
         }
+        updateInputs()
       }
       function onMaxValue(event) {
         const val = parseFloat(event.target.value)
         if (!isNaN(val)) {
           max = val
           _init()
-          updateInputs()
         }
+        updateInputs()
       }
       function onStep(event) {
         const val = parseFloat(event.target.value)
         if (!isNaN(val) && val > 0) {
           step = val
           _init()
-          updateInputs()
         }
+        updateInputs()
       }
       function onLeftThumbValue(event) {
         const val = parseFloat(event.target.value) || min
-				setLeftValue(_getValueInRange(val))
+				setLeftValue(val)
         updateInputs()
       }
       function onRightThumbValue(event) {
         const val = parseFloat(event.target.value) || max
-        setRightValue(_getValueInRange(val))
+        setRightValue(val)
         updateInputs()
       }
       function onMinLimitLeftThumb(event) {
         const val = parseFloat(event.target.value)
+        if (val >= min && val <= value[1] && (isNaN(configLimit[0][1]) || val <= configLimit[0][1])) {
+          configLimit[0][0] = val
+          _init()
+        }
         updateInputs()
       }
       function onMaxLimitLeftThumb(event) {
         const val = parseFloat(event.target.value)
+        if (val >= min && val <= value[1] && (isNaN(configLimit[0][0]) || val >= configLimit[0][0])) {
+          configLimit[0][1] = val
+          _init()
+        }
         updateInputs()
       }
       function onMinLimitRightThumb(event) {
         const val = parseFloat(event.target.value)
+        if (val >= value[0] && (isNaN(configLimit[1][1]) || val <= configLimit[1][1])) {
+          configLimit[1][0] = val
+          _init()
+        }
         updateInputs()
       }
       function onMaxLimitRightThumb(event) {
         const val = parseFloat(event.target.value)
+        if (val >= value[0] && (isNaN(configLimit[1][0]) || val >= configLimit[1][0])) {
+          configLimit[1][1] = val
+          _init()
+        }
         updateInputs()
       }
 
