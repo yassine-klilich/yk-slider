@@ -175,7 +175,6 @@ function setLeftValue(_value) {
  */
 function setRightValue(_value) {
   const correctValue = _getValueInRange(_value)
-  console.log(correctValue);
   if (
     correctValue >= value[0] &&
     (isNaN(limit[1][0]) || limit[1][0] <= correctValue) &&
